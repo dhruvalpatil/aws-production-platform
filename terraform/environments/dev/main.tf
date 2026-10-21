@@ -41,3 +41,9 @@ module "iam" {
 
   name = "aws-production-platform-dev"
 }
+
+module "ecr" {
+  source = "../../modules/ecr"
+
+  name = "aws-production-platform-dev"
+}
