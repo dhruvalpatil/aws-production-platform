@@ -35,3 +35,9 @@ module "security_groups" {
 
   allowed_ingress_cidr = "0.0.0.0/0"
 }
+
+module "iam" {
+  source = "../../modules/iam"
+
+  name = "aws-production-platform-dev"
+}

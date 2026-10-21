@@ -32,3 +32,13 @@ output "db_security_group_id" {
   description = "Security group ID for the PostgreSQL database"
   value       = module.security_groups.db_security_group_id
 }
+
+output "ecs_task_execution_role_arn" {
+  description = "ARN of the ECS task execution IAM role"
+  value       = module.iam.ecs_task_execution_role_arn
+}
+
+output "ecs_task_role_arn" {
+  description = "ARN of the ECS task IAM role"
+  value       = module.iam.ecs_task_role_arn
+}
