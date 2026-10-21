@@ -1,0 +1,61 @@
+# =========================
+# Terraform
+# =========================
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Terraform variable files
+*.tfvars
+*.tfvars.json
+
+# Keep .terraform.lock.hcl in Git
+
+
+# =========================
+# AWS
+# =========================
+.aws/
+
+
+# =========================
+# Environment / Secrets
+# =========================
+.env
+.env.*
+*.pem
+*.key
+
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+
+# =========================
+# Docker
+# =========================
+*.log
+
+
+# =========================
+# VS Code
+# =========================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
