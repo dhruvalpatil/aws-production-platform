@@ -25,3 +25,13 @@ module "vpc" {
     "10.0.22.0/24"
   ]
 }
+
+module "security_groups" {
+  source = "../../modules/security-groups"
+
+  name = "aws-production-platform-dev"
+
+  vpc_id = module.vpc.vpc_id
+
+  allowed_ingress_cidr = "0.0.0.0/0"
+}
