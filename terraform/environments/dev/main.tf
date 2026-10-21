@@ -47,3 +47,37 @@ module "ecr" {
 
   name = "aws-production-platform-dev"
 }
+
+
+module "alb" {
+  source = "../../modules/alb"
+
+  name                  = "aws-production-platform-dev"
+  vpc_id                = module.vpc.vpc_id
+  public_subnet_ids     = module.vpc.public_subnet_ids
+  alb_security_group_id = module.security_groups.alb_security_group_id
+
+  app_port = 8000
+}
+
+module "ecs" {
+  source = "../../modules/ecs"
+
+  name      = "aws-production-platform-dev"
+  image_uri = "${module.ecr.repository_url}:1.0.0"
+
+  # Demo setup: public subnets avoid NAT Gateway charges.
+  subnet_ids = module.vpc.public_subnet_ids
+
+  app_security_group_id   = module.security_groups.app_security_group_id
+  task_execution_role_arn = module.iam.ecs_task_execution_role_arn
+  task_role_arn           = module.iam.ecs_task_role_arn
+  target_group_arn        = module.alb.target_group_arn
+
+  container_port = 8000
+  cpu            = 256
+  memory         = 512
+  desired_count  = 1
+
+  depends_on = [module.alb]
+}

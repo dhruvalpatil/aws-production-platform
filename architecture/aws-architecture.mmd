@@ -1,0 +1,55 @@
+flowchart TB
+    Internet["Internet"]
+
+    subgraph AWS["AWS - ap-south-1"]
+        subgraph VPC["VPC 10.0.0.0/16"]
+            IGW["Internet Gateway"]
+
+            subgraph Public["Public Subnets"]
+                PUB1["10.0.1.0/24"]
+                PUB2["10.0.2.0/24"]
+            end
+
+            subgraph App["Private App Subnets"]
+                APP1["10.0.11.0/24"]
+                APP2["10.0.12.0/24"]
+            end
+
+            subgraph DB["Private DB Subnets"]
+                DB1["10.0.21.0/24"]
+                DB2["10.0.22.0/24"]
+            end
+
+            SGALB["ALB Security Group"]
+            SGAPP["App Security Group"]
+            SGDB["DB Security Group"]
+
+            IAM["IAM Roles"]
+            ECR["Amazon ECR<br/>Image: 1.0.0"]
+
+            ALB["Application Load Balancer<br/>(Configured in Terraform)"]
+            ECS["Amazon ECS<br/>(Configured in Terraform)"]
+        end
+    end
+
+    Internet --> IGW
+    IGW --> PUB1
+    IGW --> PUB2
+
+    PUB1 --> ALB
+    PUB2 --> ALB
+
+    ALB --> APP1
+    ALB --> APP2
+
+    APP1 --> DB1
+    APP2 --> DB2
+
+    SGALB -.-> ALB
+    SGAPP -.-> APP1
+    SGAPP -.-> APP2
+    SGDB -.-> DB1
+    SGDB -.-> DB2
+
+    IAM -.-> ECS
+    ECR -.-> ECS

@@ -59,3 +59,14 @@ env/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Terraform saved plans
+**/tfplan
+**/tfplan.*
+
+# Terraform local files and state
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
